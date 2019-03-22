@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface CharacterState
+public interface ICharacterState
 {
     void EnterExecute();
     void UpdateExecute();

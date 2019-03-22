@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 输入状态更新类
+/// </summary>
 public class Input_StateChange : MonoBehaviour
 {
+    /// <summary>
+    /// 单例字段
+    /// </summary>
     public static readonly Input_StateChange Instance;
     static Input_StateChange()
     {
-        Debug.Log("玩家输入状态实例化");
+        Debug.Log("输入状态更新开始");
     }
-    
+    /// <summary>
+    /// 玩家管理器字段
+    /// </summary>
     PlayerManager playerManager;
+    /// <summary>
+    /// 输入状态字段
+    /// </summary>
     Input_State inputState;
+    /// <summary>
+    /// 按键设置字段
+    /// </summary>
     KeyMapping[] inputSetting;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +39,7 @@ public class Input_StateChange : MonoBehaviour
     {
         foreach (var i in PlayerManager.GetPlayerList())
         {
-            ChangeInputState(inputSetting, PlayerManager.GetOperations(i.Key));
+            ChangeInputState(inputSetting, PlayerManager.GetInputState(i.Key).GameOperations);
         }
     }
     /// <summary>
@@ -33,9 +47,10 @@ public class Input_StateChange : MonoBehaviour
     /// </summary>
     /// <param name="inputSetting"></param>
     /// <param name="gameOperation"></param>
-    public void ChangeInputState(KeyMapping[] inputSetting, List<GameOperation> gameOperation)
+    public void ChangeInputState(KeyMapping[] inputSetting, GameOperation[] gameOperation)
     {
-        gameOperation.Clear();
+        List<GameOperation> tempList = new List<GameOperation>();
+        
         for (int i = 0; i < inputSetting.Length; i++)
         {
             //Debug.Log(inputSetting[i].keyPressType);
@@ -48,7 +63,7 @@ public class Input_StateChange : MonoBehaviour
                     if (Input.GetKeyDown(inputSetting[i].keyLink))
                     {
                         Debug.Log(inputSetting[i].operation);
-                        gameOperation.Add(inputSetting[i].operation);
+                        tempList.Add(inputSetting[i].operation);
                     }
                     break;
                 //按住
@@ -56,7 +71,7 @@ public class Input_StateChange : MonoBehaviour
                     if (Input.GetKey(inputSetting[i].keyLink))
                     {
                         Debug.Log(inputSetting[i].operation);
-                        gameOperation.Add(inputSetting[i].operation);
+                        tempList.Add(inputSetting[i].operation);
                     }
                     break;
                 //松开
@@ -64,10 +79,11 @@ public class Input_StateChange : MonoBehaviour
                     if (Input.GetKeyUp(inputSetting[i].keyLink))
                     {
                         Debug.Log(inputSetting[i].operation);
-                        gameOperation.Add(inputSetting[i].operation);
+                        tempList.Add(inputSetting[i].operation);
                     }
                     break;
             }
+            gameOperation = tempList.ToArray();
         }
     }
 }

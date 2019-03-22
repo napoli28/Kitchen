@@ -7,11 +7,12 @@ public class Input_State
 {
     public GUID PlayerID;
     public KeyMapping[] RuntimeInputSetting;
-    public List<GameOperation> GameOperationList; 
+    public GameOperation[] GameOperations;
+    public Vector2 Axis;
 
     public Input_State(GUID playerID)
     {
         PlayerID = playerID;
-        GameOperationList = new List<GameOperation>();
+        GameOperations = new GameOperation[0];
     }
 }

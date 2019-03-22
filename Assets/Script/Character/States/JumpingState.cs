@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpingState : CharacterState
+public class JumpingState : ICharacterState
 { 
     private Character _character;
     private int _airJumpCount;
@@ -18,14 +18,14 @@ public class JumpingState : CharacterState
     {
         if (Input.GetButtonDown("Jump") && _airJumpCount > 0)
         {
-            _character._action.Jump();
+            _character.action.Jump();
             _airJumpCount -= 1;
         }
     }
 
     public void EnterExecute()
     {
-        _character._action.Jump();
+        _character.action.Jump();
     }
 
     public void UpdateExecute()
@@ -34,6 +34,6 @@ public class JumpingState : CharacterState
     }
     public void ExitExecute()
     {
-        _character._action.Land();
+        _character.action.Land();
     }
 }

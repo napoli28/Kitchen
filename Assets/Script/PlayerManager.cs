@@ -43,8 +43,13 @@ public class PlayerManager : MonoBehaviour
         return PlayerList[playerID];
     }
 
-    public static List<GameOperation> GetOperations(GUID playerID)
+    public static Input_State GetInputState(GUID playerID)
     {
-        return PlayerList[playerID].inputState.GameOperationList;
+        return PlayerList[playerID].inputState;
+    }
+
+    public static Input_Event GetInputEvent(GUID playerID)
+    {
+        return PlayerList[playerID].inputEvent;
     }
 }

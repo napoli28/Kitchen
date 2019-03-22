@@ -24,7 +24,7 @@ public class Action : MonoBehaviour
     public Action(Character character)
     {
         _character = character;
-        _animator = _character._animator;
+        _animator = _character.animator;
     }
     float _vertical;
     float _horizontal;
